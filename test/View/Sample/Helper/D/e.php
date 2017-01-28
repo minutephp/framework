@@ -1,0 +1,1 @@
+[Helper <?php echo 1; ?>!]

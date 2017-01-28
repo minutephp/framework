@@ -1,0 +1,1 @@
+<inner><minute-event name="view.include.content"></minute-event></inner>

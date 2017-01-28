@@ -1,0 +1,1 @@
+<script src="/static/bower_components/minute/src/js/minute-addons.js"></script>

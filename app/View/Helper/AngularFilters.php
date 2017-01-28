@@ -1,0 +1,1 @@
+<script src="/static/bower_components/angular-filter/dist/angular-filter.js"></script>

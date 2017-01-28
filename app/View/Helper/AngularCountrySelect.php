@@ -1,0 +1,1 @@
+<script src="/static/bower_components/angular-country-select/src/js/angular-country-select.js"></script>

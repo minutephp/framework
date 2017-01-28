@@ -1,0 +1,2 @@
+<link href="/static/bower_components/nya-bootstrap-select/dist/css/nya-bs-select.min.css" rel="stylesheet">
+<script src="/static/bower_components/nya-bootstrap-select/dist/js/nya-bs-select.min.js"></script>

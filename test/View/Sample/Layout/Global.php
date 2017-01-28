@@ -1,0 +1,1 @@
+<html><body><minute-event name="view.include.content"></minute-event></body></html>

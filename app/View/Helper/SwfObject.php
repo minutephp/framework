@@ -1,0 +1,1 @@
+<script src="/static/bower_components/swfobject/swfobject/swfobject.js"></script>
