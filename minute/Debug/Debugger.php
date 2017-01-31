@@ -27,7 +27,11 @@ namespace Minute\Debug {
          * @return bool
          */
         public function enabled() {
-            if (defined('DEBUG_MODE') && (DEBUG_MODE === true)) {
+            if (defined('DEBUG_MODE') && (DEBUG_MODE === true)) { //define in public\index.php
+                return true;
+            }
+
+            if (@getenv('PHP_DEBUG_MODE') == "true") { //using SetEnv in Apache's httpd.conf
                 return true;
             }
 

@@ -53,6 +53,7 @@ namespace App\Controller\Generic {
                                 $this->response->setStatusCode(200);
                                 $this->response->setFinal(true);
                                 $this->response->setHeader('Content-Type', preg_match('/\.js$/', $name) ? 'application/javascript' : 'text/css');
+                                $this->response->setHeader('Cache-Control', 'max-age=31622400, public');
                                 $this->response->setContent(file_get_contents($decoded->path));
                             } else {
                                 $this->logger->warn("File size mismatch: $file");

@@ -38,7 +38,7 @@ namespace Minute\Model {
                     if (preg_match('/\(.*\)/', $metadata['order'])) {
                         $model = $model->orderByRaw($metadata['order']);
                     } else {
-                        $orderBy = preg_match('/(.*?)(ASC|DESC)?$/i', $order, $matches) ? [trim($matches[1]), $matches[2]] : [$order, 'asc'];
+                        $orderBy = preg_match('/(.*?)(ASC|DESC)?$/i', $order, $matches) ? [trim($matches[1]), $matches[2] ?? 'asc'] : [$order, 'asc'];
                         $model   = $model->orderBy($orderBy[0], $orderBy[1] ?? 'asc');
                     }
                 } elseif ($oModel instanceof ModelEx) {
