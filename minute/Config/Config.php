@@ -109,7 +109,7 @@ namespace Minute\Config {
          * @param null $name    - return /public/$name only (returns the whole array otherwise)
          * @param null $default - default value to return if none is found
          *
-         * @return string
+         * @return string|mixed
          */
         public function getPublicVars($name = null, $default = null) {
             $public = array_merge(['domain' => 'localhost', 'site_name' => 'MinutePHP'], $this->get('public', []));
