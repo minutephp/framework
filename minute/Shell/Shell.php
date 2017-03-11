@@ -54,11 +54,18 @@ namespace Minute\Shell {
         }
 
         public function exec(...$args) {
-            $cmd    = $this->compile($args);
+            $cmd = $this->compile($args);
 
             exec("$cmd 2>&1", $output, $code);
 
             return ['code' => $code, 'output' => $output];
+        }
+
+        public function background(...$args) {
+            $cmd = $this->compile($args);
+            pclose(popen($cmd, 'r'));
+
+            return true;
         }
 
         protected function compile($args) {
