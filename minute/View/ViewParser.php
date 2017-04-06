@@ -4,6 +4,7 @@
  * Date: 6/18/2016
  * Time: 7:10 PM
  */
+
 namespace Minute\View {
 
     use Minute\Cache\QCache;
@@ -307,23 +308,27 @@ namespace Minute\View {
             }
 
             $output = preg_replace_callback('~<title></title>~', function () {
-                $url     = $this->request->getPath();
-                $details = $this->cache->get("seo-$url", function () use ($url) {
-                    $event = new SeoEvent($url);
-                    $this->dispatcher->fire(SeoEvent::SEO_GET_TITLE, $event);
+                $vars = $this->getVars();
+                /** @var RouteEx $route */
+                if ($route = $vars['_route']) {
+                    $path    = $route->getPath();
+                    $details = $this->cache->get("seo-$path", function () use ($path) {
+                        $event = new SeoEvent($path);
+                        $this->dispatcher->fire(SeoEvent::SEO_GET_TITLE, $event);
 
-                    return !empty($event->getTitle()) ? ['title' => $event->getTitle(), 'meta' => $event->getMeta()] : null;
-                }, 3600);
+                        return !empty($event->getTitle()) ? ['title' => $event->getTitle(), 'meta' => $event->getMeta()] : null;
+                    }, 3600);
 
-                $result = sprintf('<title>%s</title>%s', $details['title'] ?? ucwords(trim(join(' ', preg_split('/\W+/', $url)))), PHP_EOL);
+                    $result = sprintf('<title>%s</title>%s', $details['title'] ?? ucwords(trim(join(' ', preg_split('/\W+/', $url)))), PHP_EOL);
 
-                if (!empty($details['meta']) && is_array($details['meta'])) {
-                    foreach ($details['meta'] as $meta) {
-                        $result .= sprintf('<meta name="%s" content="%s" />%s', $meta['name'], $meta['content'], PHP_EOL);
+                    if (!empty($details['meta']) && is_array($details['meta'])) {
+                        foreach ($details['meta'] as $meta) {
+                            $result .= sprintf('<meta name="%s" content="%s" />%s', $meta['name'], $meta['content'], PHP_EOL);
+                        }
                     }
-                }
 
-                return $result;
+                    return $result;
+                }
             }, $output);
 
             return $output;

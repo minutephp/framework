@@ -4,6 +4,7 @@
  * Date: 10/10/2016
  * Time: 7:34 AM
  */
+
 namespace Minute\Seo {
 
     use Minute\Cache\QCache;
@@ -37,14 +38,26 @@ namespace Minute\Seo {
                 return $this->config->get('seo');
             }, 3600);
 
-            if ($data = $result['titles'][$url] ?? null) {
-                if (!empty($data['title'])) {
-                    $event->setTitle($data['title']);
-                }
+            if (!($data = $result['titles'][$url] ?? null)) {
+                if (!empty($result['titles'])) {
+                    $urlRegEx = preg_replace('~/\{~', '/?{', $url);
+                    $urlRegEx = preg_replace('/\{[^}]+\}/', '(.*?)', $urlRegEx);
 
-                if (!empty($data['description'])) {
-                    $event->setMeta([['name' => 'description', 'content' => $data['description']]]);
+                    foreach ($result['titles'] as $path => $pathData) {
+                        if (preg_match("~$urlRegEx~", $path)) {
+                            $data = $pathData;
+                            break;
+                        }
+                    }
                 }
+            }
+
+            if (!empty($data['title'])) {
+                $event->setTitle($data['title']);
+            }
+
+            if (!empty($data['description'])) {
+                $event->setMeta([['name' => 'description', 'content' => $data['description']]]);
             }
         }
     }
