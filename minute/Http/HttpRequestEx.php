@@ -33,6 +33,76 @@ namespace Minute\Http {
             parent::__construct($get, $post, $cookies, $files, $server);
         }
 
+        /**
+         * @return array
+         */
+        public function getGetParameters(): array {
+            return $this->getParameters;
+        }
+
+        /**
+         * @return array
+         */
+        public function getPostParameters(): array {
+            return $this->postParameters;
+        }
+
+        /**
+         * @return array
+         */
+        public function getServer(): array {
+            return $this->server;
+        }
+
+        /**
+         * @return array
+         */
+        public function getFiles(): array {
+            return $this->files;
+        }
+
+        /**
+         * @return array
+         */
+        public function getCookies(): array {
+            return $this->cookies;
+        }
+
+        /**
+         * @param array $getParameters
+         */
+        public function setGetParameters(array $getParameters) {
+            $this->getParameters = $getParameters;
+        }
+
+        /**
+         * @param array $postParameters
+         */
+        public function setPostParameters(array $postParameters) {
+            $this->postParameters = $postParameters;
+        }
+
+        /**
+         * @param array $server
+         */
+        public function setServer(array $server) {
+            $this->server = $server;
+        }
+
+        /**
+         * @param array $files
+         */
+        public function setFiles(array $files) {
+            $this->files = $files;
+        }
+
+        /**
+         * @param array $cookies
+         */
+        public function setCookies(array $cookies) {
+            $this->cookies = $cookies;
+        }
+
         public function isAjaxRequest() {
             return $this->ajax || (preg_match('~^application/json~i', $this->server["HTTP_ACCEPT"] ?? '') && true);
         }

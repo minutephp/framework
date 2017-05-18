@@ -117,7 +117,7 @@ namespace Minute\Model {
                     } elseif (preg_match('/\$(\w+)/', $value, $glob)) {
                         $model['matchInfo'] = ['type' => 'var', 'col' => $col ?: $glob[1], 'name' => $glob[1]];
                     } elseif (preg_match('/^(?:[\"\'])(\\w+)(?:[\"\'])$/', $value, $placeholder)) {
-                        $model['matchInfo'] = ['type' => 'string', 'col' => $col ?: $placeholder[1], 'value' => $placeholder[1]];
+                        $model['matchInfo'] = ['type' => 'string', 'col' => $col ?: $placeholder[1], 'value' => $placeholder[1], 'name' => $placeholder[1]];
                     } elseif (preg_match('/(\w+)/', $value, $placeholder)) {
                         $model['matchInfo'] = ['type' => 'url_param', 'col' => $col ?: $placeholder[1], 'name' => $placeholder[1]];
                     }

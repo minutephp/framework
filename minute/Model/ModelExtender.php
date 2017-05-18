@@ -122,7 +122,7 @@ namespace Minute\Model {
         }
 
         protected function quote($val) { //we can't use PDO::quote here since we can't use DI for Database class in constructor (as stated above)
-            if (!empty($val) && is_string($val)) {
+            if (!empty($val) && is_scalar($val)) {
                 return sprintf("'%s'", str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), preg_replace('/[^\x20-\x7E]/', '', $val)));
             }
 
