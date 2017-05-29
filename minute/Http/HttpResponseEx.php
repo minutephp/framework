@@ -4,6 +4,7 @@
  * Date: 6/18/2016
  * Time: 1:04 PM
  */
+
 namespace Minute\Http {
 
     use Http\HttpResponse;
@@ -81,9 +82,9 @@ namespace Minute\Http {
             header("Expires: 0");
         }
 
-        public function getLoginRedirect(string $reason, bool $return = false, string $to = '') {
+        public function getLoginRedirect(string $reason, bool $return = false, string $url = '', string $to = '') {
             $query = http_build_query(['redir' => $to ?: $this->request->getUri(), 'msg' => $reason]);
-            $url   = sprintf('%s?%s', $this->config->get('private/urls/login', '/login'), $query);
+            $url   = sprintf('%s?%s', $url ?: $this->config->get('private/urls/login', '/login'), $query);
 
             if (!$return) {
                 $this->setCookie('redir', $url);

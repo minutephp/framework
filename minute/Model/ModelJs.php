@@ -38,15 +38,17 @@ namespace Minute\Model {
 
             $template = <<< EOF
 
-        Minute.Models.$name = (function (_super) {
-            __extends($name, _super);
-            function $name(parent) {
-                _super.call(this, parent, [$columnsTxt]);
-                
-                $childrenTxt
-            }
-            return $name;
-        }(Minute.Item));
+            Minute.Models.$name = (function (_super) {
+                __extends($name, _super);
+                function $name(parent) {
+                    var instance = _super.call(this, parent, [$columnsTxt]);
+                    
+                    $childrenTxt
+                    
+                    return instance;
+                }
+                return $name;
+            }(Minute.Item));
 
 EOF;
 
@@ -62,13 +64,16 @@ EOF;
 
             $template = <<< EOF
             
-        Minute.Models.$multiple = (function (_super) {
-            __extends($multiple, _super);
-            function $multiple(parent) {
-                _super.call(this, Minute.Models.$single, parent, '$alias', '$theClass', '$localKey', $joinKey);
-            }
-            return $multiple;
-        }(Minute.Items));
+            Minute.Models.$multiple = (function (_super) {
+                __extends($multiple, _super);
+                function $multiple(parent) {
+                    var instance = _super.call(this, Minute.Models.$single, parent, '$alias', '$theClass', '$localKey', $joinKey);
+                    
+                    return instance;
+                }
+                
+                return $multiple;
+            }(Minute.Items));
 
 EOF;
 

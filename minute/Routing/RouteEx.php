@@ -61,7 +61,7 @@ namespace Minute\Routing {
          * (useful when foreign keys are not supported)
          *
          * @param string $parentModelAlias
-         * @param string $childModelName
+         * @param array $childModelName
          *
          * @return RouteEx
          */
