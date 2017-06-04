@@ -98,10 +98,6 @@ namespace Minute\Session {
             return $auth_event->isAuthorized();
         }
 
-        public function isTrialAccount(string $min_paid_level = '') {
-            return !$this->hasAccess($min_paid_level ?: $this->config->get(AccessManager::GROUP_KEY . '/min_paid_level', 'power'));
-        }
-
         public function startSession(int $userId, $su = false) {
             $expiry   = $this->config->get('private/site/session_length', '+1 day');
             $jwtValue = $this->getSessionCookie($userId, $expiry);

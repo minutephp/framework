@@ -4,6 +4,7 @@
  * Date: 6/22/2016
  * Time: 8:14 AM
  */
+
 namespace Minute\Render {
 
     use App\Model\User;
@@ -107,7 +108,7 @@ namespace Minute\Render {
                 }
             }
 
-            $printer = sprintf('<script' . '>Minute.setSessionData(%s)</script>', json_encode($data));
+            $printer = sprintf('<script' . '>Minute.setSessionData(%s)</script>', json_encode($data, JSON_PRETTY_PRINT));
             $event->setContent($printer);
         }
 
@@ -117,9 +118,20 @@ namespace Minute\Render {
                 $user_id = $this->session->getLoggedInUserId();
                 /** @var User $user_info */
                 if ($user_info = User::find($user_id)) {
-                    $user_data           = array_diff_key($user_info->getAttributes(), ['password' => 1, 'verified' => 1, 'ident' => 1]);
+                    $user_data = array_diff_key($user_info->getAttributes(), ['password' => 1, 'verified' => 1, 'ident' => 1]);
+                    $paid      = false;
+
                     $user_data['groups'] = $this->userInfo->getUserGroups($user_id, true) ?: [];
-                    $user_data['trial']  = $this->session->isTrialAccount();
+                    $user_data['expiry'] = 0;
+
+                    foreach ($user_data['groups'] as $group) {
+                        if ($group['access'] == 'primary') {
+                            $user_data['expiry'] = max($user_data['expiry'], $group['expiry_days'] ?? 0);
+                            $paid = $paid || ($group['group_name'] != 'trial' && $group['expiry_days'] > 0);
+                        }
+                    }
+
+                    $user_data['trial']  = !$paid;
                 } else {
                     $user_data = null;
                 }
