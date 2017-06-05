@@ -108,7 +108,7 @@ namespace Minute\Render {
                 }
             }
 
-            $printer = sprintf('<script' . '>Minute.setSessionData(%s)</script>', json_encode($data, JSON_PRETTY_PRINT));
+            $printer = sprintf('<script' . '>Minute.setSessionData(%s)</script>', json_encode($data));
             $event->setContent($printer);
         }
 

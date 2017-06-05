@@ -106,7 +106,7 @@ namespace Minute\Controller {
                             foreach ($models as $tlp => $model) {
                                 if ($array = $model->toArray()) {
                                     if ($child = $tlp === $alias ? $array : $this->findChildByAlias($array, $alias)) {
-                                        $output = json_encode($child, JSON_PRETTY_PRINT);
+                                        $output = json_encode($child);
                                     }
                                 }
                             }

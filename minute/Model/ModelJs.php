@@ -88,7 +88,7 @@ EOF;
          */
         public function createData($model, string $single) {
             $str = sprintf("\n\t\t\$scope.%s = new Minute.Models.%sArray(null);\n", $single, $this->fixName($single));
-            $str .= sprintf("\t\t\$scope.%s.load(%s);\n", $single, json_encode($model->toArray(), JSON_PRETTY_PRINT));
+            $str .= sprintf("\t\t\$scope.%s.load(%s);\n", $single, json_encode($model->toArray()));
 
             //{metadata: {offset: 0, limit: 2, total: %d}, items: %s}
 
